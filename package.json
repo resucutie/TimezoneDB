@@ -1,0 +1,33 @@
+{
+  "name": "timezonedb",
+  "version": "0.0.1",
+  "description": "i like ass",
+  "exports": "./index.js",
+  "type": "module",
+  "scripts": {
+    "watch": "nodemon",
+    "start": "node --loader ts-node/esm ./index.ts"
+  },
+  "author": "abUwUser",
+  "dependencies": {
+    "@types/express": "^4.17.13",
+    "colors": "^1.4.0",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.2",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.1",
+    "nedb-promises": "^5.0.2",
+    "node-fetch": "^3.1.0"
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.2",
+    "@types/jsonwebtoken": "^8.5.6",
+    "@types/lodash": "^4.14.178",
+    "@types/node": "^17.0.2",
+    "nodemon": "^2.0.15",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.4"
+  }
+}

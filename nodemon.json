@@ -1,0 +1,14 @@
+{
+    "ignore": [
+        ".git/",
+        "node_modules/",
+        ".gitignore",
+        "package.json",
+        "package-lock.json",
+        "compiled/",
+        "README.md",
+        "*.d.ts"
+    ],
+    "exec": "node --loader ts-node/esm ./index.ts",
+    "ext": "js,json,ts"
+}
