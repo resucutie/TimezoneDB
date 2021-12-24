@@ -31,3 +31,13 @@ declare interface UserObject extends NedbPromisesDocument {
     id: string
     timezone: Timezone
 }
+
+declare global {
+    namespace NodeJS {
+        interface ProcessEnv {
+            DISCORD_SECRET: string
+            DISCORD_ID: string
+            JWT_SECRET: string
+        }
+    }
+}

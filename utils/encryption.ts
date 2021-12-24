@@ -6,7 +6,8 @@ interface LoginCookies {
 };
 
 function getUserInfo(cookeis: any) {
-    return jwt.verify(cookeis, constants.JWT.SECRET) as LoginCookies
+    //@ts-ignore
+    return jwt.verify(cookeis, process.env.JWT_SECRET) as LoginCookies
 }
 
 export {

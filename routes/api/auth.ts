@@ -47,7 +47,9 @@ AuthRouter.get("/", async (req, res) => {
 
             res.cookie("loginInfo", jwt.sign({
                 userId: getUser.id
-            }, constants.JWT.SECRET))
+            }, 
+            //@ts-ignore
+            process.env.JWT_SECRET))
 
             res.redirect(req.protocol + '://' + req.get('host') + req.originalUrl)
 
