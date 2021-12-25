@@ -40,8 +40,6 @@ const editUser = async (id: string, { timezone }: EditUserSettingsProps) => {
         timezone: ensuredTz
     })
 
-    console.log("updated", await getUser(id))
-
     return currentUser
 }
 

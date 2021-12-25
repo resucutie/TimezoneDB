@@ -66,35 +66,30 @@ UserAccRouter.get('/', async (req, res) => {
 
 UserAccRouter.put('/', async (req, res) => {
     try {
-        const settings = req.body
-
-        if (!settings) {
-            console.log(settings)
-            res.status(401).send({
-                error_message: "No settings sent",
-                error_code: constants.ExceptionCodes.LoginConnections.NO_SETTINGS
-            })
-
-            return
-        }
+        const settings: {
+            timezone?: Timezone
+        } = req.body
 
         if (
-            settings instanceof Object &&
-            !(settings instanceof Array) &&
-            Object.getOwnPropertyNames(settings).length === 0
+            !settings ||
+            !(settings instanceof Object) ||
+            settings instanceof Array ||
+            Object.getOwnPropertyNames(settings).length === 0 ||
+            !settings.hasOwnProperty("timezone")
         ) {
-            console.log(settings)
-            res.status(401).send({
-                error_message: "No settings sent"
+            res.status(400).send({
+                error_message: "Invalid settings sent",
+                error_code: constants.ExceptionCodes.LoginConnections.INVALID_SETTINGS
             })
 
             return
         }
 
         const currentUserId = await getUserInfo(req.cookies.loginInfo)?.userId
-        console.log(currentUserId)
 
-        const oldUser = await editUser(currentUserId, settings)
+        const oldUser = await editUser(currentUserId, {
+            timezone: settings.timezone
+        })
 
         res.status(200).send(oldUser)
     } catch (err: any) {

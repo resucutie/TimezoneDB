@@ -118,8 +118,6 @@ function isNotTimezone(timezone: any, opts: object = { filterUndefined: true, ch
         if (!hasSign) return constants.ExceptionCodes.Timezones.InvalidFormatReasons.NO_SIGN
     }
 
-    console.log(Math.abs(Number(69)) > 24)
-
     // overflow checking
     if (Math.abs(Number(timezone)) > 24 && checkOverflow) return constants.ExceptionCodes.Timezones.InvalidFormatReasons.OVERFLOW
 

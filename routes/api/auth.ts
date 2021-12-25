@@ -30,15 +30,13 @@ AuthRouter.get("/", async (req, res) => {
 
         if (!userExists) await addUser(loginInfo.userId)
 
-        res.status(userExists ? 303 : 201).redirect("/api/user")
+        res.status(userExists ? 303 : 201).redirect("/")
     } catch (err: any) {
         if (err.message = "jwt must be provided") {
             if (!query.code) {
                 redirectToAuthorizationPage(res)
                 return
             }
-
-            console.log("query.code exists")
 
             const auth = await requestAuthorization(query.code)
 
@@ -83,9 +81,11 @@ AuthRouter.put("/", async (req, res) => {
 })
 
 AuthRouter.get("/logout", async (req, res) => {
+    const query: { redirecturl?: string} = req.query
     try {
         res.clearCookie("loginInfo")
-        res.sendStatus(200)
+        if (query.redirecturl) res.status(200).redirect(query.redirecturl)
+        else res.sendStatus(200)
     } catch (err: any) {
         res.status(500).send({
             error_messge: "Internal error",

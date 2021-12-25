@@ -1,4 +1,40 @@
-export default {
+interface yes {
+    PORT: number,
+    URL?: string
+    ExceptionCodes: {
+        Timezones: {
+            INVALID_CITY: string,
+            NOT_HMTZ_FORMAT: string,
+            NOT_HTZ_FORMAT: string,
+            INVALID_FORMAT: string,
+
+            InvalidFormatReasons: {
+                NO_SIGN: string,
+                NOT_A_NUMBER: string,
+                NOT_HTZ_FORMAT: string,
+                OVERFLOW: string,
+                UNDEFINED: string
+            }
+        },
+        Date: {
+            INVALID_DATE: string
+        },
+        DB: {
+            ALREADY_EXISTING_USER: string,
+            UNEXISTING_USER: string,
+            UNSET_ID: string
+        },
+        LoginConnections: {
+            NOT_LOGGED: string,
+            INVALID_SETTINGS: string
+        },
+        Connection: {
+            DIFFERENT_USER: string
+        }
+    },
+}
+
+let constants: yes = {
     PORT: process.env.PORT ? parseInt(process.env.PORT) : 8001,
     ExceptionCodes: {
         Timezones: {
@@ -25,10 +61,14 @@ export default {
         },
         LoginConnections: {
             NOT_LOGGED: "NOT_LOGGED",
-            NO_SETTINGS: "NO_SETTINGS"
+            INVALID_SETTINGS: "INVALID_SETTINGS"
         },
         Connection: {
             DIFFERENT_USER: "DIFFERENT_USER"
         }
     },
 }
+
+constants.URL = `http://localhost:${constants.PORT}/`
+
+export default constants
