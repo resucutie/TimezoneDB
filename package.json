@@ -7,7 +7,7 @@
   "scripts": {
     "watch": "nodemon",
     "start": "node --loader ts-node/esm ./index.ts",
-    "build": "tsc -p . --outDir ./dist"
+    "build": "tsc -p . --outDir ./dist && cp -r ./ui/main ./dist/ui/"
   },
   "author": "abUwUser",
   "dependencies": {
