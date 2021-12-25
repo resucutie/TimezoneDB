@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "watch": "nodemon",
-    "start": "node --loader ts-node/esm ./index.ts"
+    "start": "node --loader ts-node/esm ./index.ts",
+    "build": "tsc -p . --outDir ./dist"
   },
   "author": "abUwUser",
   "dependencies": {

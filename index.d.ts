@@ -38,6 +38,7 @@ declare global {
             DISCORD_SECRET: string
             DISCORD_ID: string
             JWT_SECRET: string
+            PORT: string
         }
     }
 }

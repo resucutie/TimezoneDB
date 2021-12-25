@@ -1,5 +1,5 @@
 export default {
-    PORT: 8001,
+    PORT: process.env.PORT ? parseInt(process.env.PORT) : 8001,
     ExceptionCodes: {
         Timezones: {
             INVALID_CITY: "INVALID_CITY",
