@@ -4,7 +4,13 @@ import { DBException } from "./exceptions.js"
 import constants from "./constants.js"
 import { getCurrentUser } from "./discordApi.js"
 
-const users: any = nedb.create(process.env.DB_PATH || "/db/database.db")
+const users: any = nedb.create({
+    filename: (process.env.PROD == "true") ? "/data/database.db" : "/db/database.db",
+    inMemoryOnly: false,
+    autoload: true
+})
+
+users.persistence.setAutocompactionInterval(3600000) // 1 hour;
 
 const addUser = async (id: string, timezone: Timezone = "+0") => {
     const ensuredTz = ensureTimezone(timezone)
