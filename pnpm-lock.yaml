@@ -20,7 +20,6 @@ specifiers:
   typescript: ^4.5.4
 
 dependencies:
-  '@types/express': 4.17.13
   colors: 1.4.0
   cookie-parser: 1.4.6
   dotenv: 10.0.0
@@ -33,6 +32,7 @@ dependencies:
 
 devDependencies:
   '@types/cookie-parser': 1.4.2
+  '@types/express': 4.17.13
   '@types/jsonwebtoken': 8.5.6
   '@types/lodash': 4.14.178
   '@types/node': 17.0.2
@@ -99,11 +99,13 @@ packages:
     dependencies:
       '@types/connect': 3.4.35
       '@types/node': 17.0.2
+    dev: true
 
   /@types/connect/3.4.35:
     resolution: {integrity: sha512-cdeYyv4KWoEgpBISTxWvqYsVy444DOqehiF3fM3ne10AmJ62RSyNkUnxMJXHQWRQQX2eR94m5y1IZyDwBjV9FQ==}
     dependencies:
       '@types/node': 17.0.2
+    dev: true
 
   /@types/cookie-parser/1.4.2:
     resolution: {integrity: sha512-uwcY8m6SDQqciHsqcKDGbo10GdasYsPCYkH3hVegj9qAah6pX5HivOnOuI3WYmyQMnOATV39zv/Ybs0bC/6iVg==}
@@ -117,6 +119,7 @@ packages:
       '@types/node': 17.0.2
       '@types/qs': 6.9.7
       '@types/range-parser': 1.2.4
+    dev: true
 
   /@types/express/4.17.13:
     resolution: {integrity: sha512-6bSZTPaTIACxn48l50SR+axgrqm6qXFIxrdAKaG6PaJk3+zuUr35hBlgT7vOmJcum+OEaIBLtHV/qloEAFITeA==}
@@ -125,6 +128,7 @@ packages:
       '@types/express-serve-static-core': 4.17.26
       '@types/qs': 6.9.7
       '@types/serve-static': 1.13.10
+    dev: true
 
   /@types/jsonwebtoken/8.5.6:
     resolution: {integrity: sha512-+P3O/xC7nzVizIi5VbF34YtqSonFsdnbXBnWUCYRiKOi1f9gA4sEFvXkrGr/QVV23IbMYvcoerI7nnhDUiWXRQ==}
@@ -138,21 +142,26 @@ packages:
 
   /@types/mime/1.3.2:
     resolution: {integrity: sha512-YATxVxgRqNH6nHEIsvg6k2Boc1JHI9ZbH5iWFFv/MTkchz3b1ieGDa5T0a9RznNdI0KhVbdbWSN+KWWrQZRxTw==}
+    dev: true
 
   /@types/node/17.0.2:
     resolution: {integrity: sha512-JepeIUPFDARgIs0zD/SKPgFsJEAF0X5/qO80llx59gOxFTboS9Amv3S+QfB7lqBId5sFXJ99BN0J6zFRvL9dDA==}
+    dev: true
 
   /@types/qs/6.9.7:
     resolution: {integrity: sha512-FGa1F62FT09qcrueBA6qYTrJPVDzah9a+493+o2PCXsesWHIn27G98TsSMs3WPNbZIEj4+VJf6saSFpvD+3Zsw==}
+    dev: true
 
   /@types/range-parser/1.2.4:
     resolution: {integrity: sha512-EEhsLsD6UsDM1yFhAvy0Cjr6VwmpMWqFBCb9w07wVugF7w9nfajxLuVmngTIpgS6svCnm6Vaw+MZhoDCKnOfsw==}
+    dev: true
 
   /@types/serve-static/1.13.10:
     resolution: {integrity: sha512-nCkHGI4w7ZgAdNkrEu0bv+4xNV/XDqW+DydknebMOQwkpDGx8G+HTlj7R7ABI8i8nKxVw0wtKPi1D+lPOkh4YQ==}
     dependencies:
       '@types/mime': 1.3.2
       '@types/node': 17.0.2
+    dev: true
 
   /abbrev/1.1.1:
     resolution: {integrity: sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q==}
