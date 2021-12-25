@@ -18,4 +18,5 @@ RUN npm i -g pnpm \
 COPY --from=0 /app/dist .
 EXPOSE 8001
 ENV DBPATH=/data/default.db
+ENV PROD=true
 CMD node .

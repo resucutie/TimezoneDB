@@ -7,7 +7,11 @@ import { getUserInfo } from "../../utils/encryption.js";
 import { errorLog } from "../../utils/log.js";
 
 const redirectToAuthorizationPage = (res: Response) => {
-    res.redirect("https://discord.com/oauth2/authorize?client_id=922650528821940224&redirect_uri=http%3A%2F%2Flocalhost%3A8001%2Fapi%2Fauth&response_type=code&scope=identify")
+    if (process.env.PROD == "true") {
+        res.redirect(`https://discord.com/oauth2/authorize?client_id=${process.env.DISCORD_ID}&redirect_uri=https%3A%2F%2Ftimezonedb.bigdumb.gq%2Fapi%2Fauth&response_type=code&scope=identify`)
+    } else {
+        res.redirect(`https://discord.com/oauth2/authorize?client_id=${process.env.DISCORD_ID}&redirect_uri=http%3A%2F%2Flocalhost%3A8001%2Fapi%2Fauth&response_type=code&scope=identify`)
+    }
 }
 
 interface AuthRequest {

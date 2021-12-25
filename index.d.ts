@@ -40,6 +40,7 @@ declare global {
             JWT_SECRET: string
             PORT: string
             DB_PATH: string
+            PROD: string
         }
     }
 }
