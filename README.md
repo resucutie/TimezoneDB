@@ -22,7 +22,7 @@ Then to run it, open your preferred terminal, go to the root of the project and 
 
 ### `Timezone`
 
-String that indicates the timezone offset **in hours** from UTC. The signal is always exposed, and if it is 0 then a + signal is displa
+String that indicates the timezone offset **in hours** from UTC. The signal is always exposed, and if it is 0 then a + signal is displayed
 
 Examples:
 
@@ -33,7 +33,7 @@ Examples:
 
 
 
-### User Object
+### user-objectUser Object
 
 Object that shows the current user information
 
@@ -85,7 +85,7 @@ Gets the current user logged in. Automatically redirects to `/api/user/:id`, whe
 ### `GET /api/user/:id`
 Gets information about the specified user.
 
-Returns a [200 OK](https://httpstatuses.com/200) status code with a [User Object](#User Object)
+Returns a [200 OK](https://httpstatuses.com/200) status code with a [User Object](#user-object)
 
 
 
@@ -115,4 +115,4 @@ Returns a [200 OK](https://httpstatuses.com/200) status code with a [User Object
 
 Deletes the current user account and logouts the user.
 
-Returns a [200 OK](https://httpstatuses.com/200) status code with a [User Object](#User Object) of the user before the changes
+Returns a [200 OK](https://httpstatuses.com/200) status code with a [User Object](#user-object) of the user before the changes
