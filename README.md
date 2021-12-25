@@ -33,7 +33,7 @@ Examples:
 
 
 
-### user-objectUser Object
+### User Object
 
 Object that shows the current user information
 
@@ -44,12 +44,14 @@ Object that shows the current user information
 
 
 
-## `/api/auth`
+## Routes
+
+### `/api/auth`
 Api for managing logins and logouts
 
 
 
-### `GET /api/auth`
+#### `GET /api/auth`
 Logins the user. Will require OAuth2 authorization if the user is disconnected or not logged in. It will create a cookie named `loginInfo` with encrypted information.<br />
 Also it will automatically setup an account for it if the user is new
 
@@ -57,12 +59,12 @@ Will redirect to `/api/user` with a status code of [201 Created](https://httpsta
 
 
 
-### `GET /api/auth/login` 
+#### `GET /api/auth/login` 
 Alias to `/api/auth`
 
 
 
-### `GET /api/auth/logout` 
+#### `GET /api/auth/logout` 
 Logouts the user. It will clear the `loginInfo` cookie
 
 Returns a [200 OK](https://httpstatuses.com/200) status code when logged out sucessfully
@@ -72,24 +74,24 @@ Returns a [200 OK](https://httpstatuses.com/200) status code when logged out suc
 
 
 
-## `/api/user` 
+### `/api/user` 
 Api for managing users
 
 
 
-### `GET /api/user`
+#### `GET /api/user`
 Gets the current user logged in. Automatically redirects to `/api/user/:id`, where `id` is the logged user ID
 
 
 
-### `GET /api/user/:id`
+#### `GET /api/user/:id`
 Gets information about the specified user.
 
 Returns a [200 OK](https://httpstatuses.com/200) status code with a [User Object](#user-object)
 
 
 
-### `GET /api/user/:id/exists`
+#### `GET /api/user/:id/exists`
 
 Checks if a specific user exists
 
@@ -97,7 +99,7 @@ Returns a [200 OK](https://httpstatuses.com/200) status code with a boolean, `tr
 
 
 
-### `PUT /api/user/`
+#### `PUT /api/user/`
 
 Edits the current user.
 
@@ -111,7 +113,7 @@ Returns a [200 OK](https://httpstatuses.com/200) status code with a [User Object
 
 
 
-### `DELETE /api/user/`
+#### `DELETE /api/user/`
 
 Deletes the current user account and logouts the user.
 
