@@ -4,7 +4,7 @@ import { DBException } from "./exceptions.js"
 import constants from "./constants.js"
 import { getCurrentUser } from "./discordApi.js"
 
-const users: any = nedb.create("/db/database.db")
+const users: any = nedb.create(process.env.DB_PATH || "/db/database.db")
 
 const addUser = async (id: string, timezone: Timezone = "+0") => {
     const ensuredTz = ensureTimezone(timezone)
