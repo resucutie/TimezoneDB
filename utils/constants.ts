@@ -1,8 +1,5 @@
 export default {
     PORT: 8001,
-    JWT: {
-        SECRET: "VodYpc1JyHkSfmtifrph" //generated at https://www.random.org/strings/
-    },
     ExceptionCodes: {
         Timezones: {
             INVALID_CITY: "INVALID_CITY",
