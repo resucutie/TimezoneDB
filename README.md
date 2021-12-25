@@ -6,11 +6,13 @@ Server's code for [Timezones](https://github.com/abUwUser/BDPlugins/tree/main/pl
 
 ## Setup
 
-Before compiling, you should add a `.env` file in the root of the project with the following keys:
+Before running, you should create a new [Discord Application](https://discord.com/developers/applications) and add a `.env` file in the root of the project with the following keys:
 
 * `DISCORD_SECRET`: Secret from your application. Open your application in the [Discord Developer Portal](https://discord.com/developers/applications) and go to OAuth2 > General, then copy the Client Secret
 * `DISCORD_ID`: ID from your application. Open your application in the [Discord Developer Portal](https://discord.com/developers/applications) and go to OAuth2 > General, then copy the Client ID
 * `JWT_SECRET`: A random string for login encryption. Can be any value
+
+Then to run it, open your preferred terminal, go to the root of the project and execute `npm start` to start the server. If you're making changes, for automatic reloading, you can execute `npm run watch`
 
 
 
