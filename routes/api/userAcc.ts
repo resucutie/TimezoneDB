@@ -44,7 +44,7 @@ UserAccRouter.get('/:id', async (req, res) => {
     }
 })
 
-UserAccRouter.get('/:id/exists', async (req, res) => res.status(200).send(await doesUserExist(req.params.id)))
+UserAccRouter.get('/:id/exists', async (req, res) => res.sendStatus(await doesUserExist(req.params.id) ? 200 : 404))
 
 UserAccRouter.get('/', async (req, res) => {
     try {

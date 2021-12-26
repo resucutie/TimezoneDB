@@ -95,7 +95,7 @@ Returns a [200 OK](https://httpstatuses.com/200) status code with a [User Object
 
 Checks if a specific user exists
 
-Returns a [200 OK](https://httpstatuses.com/200) status code with a boolean, `true` if it exists and `false` if not.
+Returns a [200 OK](https://httpstatuses.com/200) status code if found and [404 Not Found](https://httpstatuses.com/404) if not
 
 
 

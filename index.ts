@@ -4,6 +4,7 @@
 import dotenv from 'dotenv'
 dotenv.config()
 import express from "express"
+import cors from "cors"
 import colors from "colors"
 import cookieParser from "cookie-parser"
 
@@ -18,6 +19,8 @@ const app = express()
 app.use(cookieParser())
 
 app.use(express.json())
+app.use(cors())
+
 app.use("/api", ApiRouter);
 app.use("/dbg", DebguRouter);
 

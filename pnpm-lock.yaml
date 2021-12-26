@@ -2,12 +2,14 @@ lockfileVersion: 5.3
 
 specifiers:
   '@types/cookie-parser': ^1.4.2
+  '@types/cors': ^2.8.12
   '@types/express': ^4.17.13
   '@types/jsonwebtoken': ^8.5.6
   '@types/lodash': ^4.14.178
   '@types/node': ^17.0.2
   colors: ^1.4.0
   cookie-parser: ^1.4.6
+  cors: ^2.8.5
   dotenv: ^10.0.0
   express: ^4.17.2
   jsonwebtoken: ^8.5.1
@@ -22,6 +24,7 @@ specifiers:
 dependencies:
   colors: 1.4.0
   cookie-parser: 1.4.6
+  cors: 2.8.5
   dotenv: 10.0.0
   express: 4.17.2
   jsonwebtoken: 8.5.1
@@ -32,6 +35,7 @@ dependencies:
 
 devDependencies:
   '@types/cookie-parser': 1.4.2
+  '@types/cors': 2.8.12
   '@types/express': 4.17.13
   '@types/jsonwebtoken': 8.5.6
   '@types/lodash': 4.14.178
@@ -111,6 +115,10 @@ packages:
     resolution: {integrity: sha512-uwcY8m6SDQqciHsqcKDGbo10GdasYsPCYkH3hVegj9qAah6pX5HivOnOuI3WYmyQMnOATV39zv/Ybs0bC/6iVg==}
     dependencies:
       '@types/express': 4.17.13
+    dev: true
+
+  /@types/cors/2.8.12:
+    resolution: {integrity: sha512-vt+kDhq/M2ayberEtJcIN/hxXy1Pk+59g2FV/ZQceeaTyCtCucjL2Q7FXlFjtWn4n15KCr1NE2lNNFhp0lEThw==}
     dev: true
 
   /@types/express-serve-static-core/4.17.26:
@@ -401,6 +409,14 @@ packages:
   /cookie/0.4.1:
     resolution: {integrity: sha512-ZwrFkGJxUR3EIoXtO+yVE69Eb7KlixbaeAWfBQB9vVsNn/o+Yw69gBWSSDK825hQNdN+wF8zELf3dFNl/kxkUA==}
     engines: {node: '>= 0.6'}
+    dev: false
+
+  /cors/2.8.5:
+    resolution: {integrity: sha512-KIHbLJqu73RGr/hnbrO9uBeixNGuvSQjul/jdFvS/KFSIH1hWVd1ng7zOHx+YrEfInLG7q4n6GHQ9cDtxv/P6g==}
+    engines: {node: '>= 0.10'}
+    dependencies:
+      object-assign: 4.1.1
+      vary: 1.1.2
     dev: false
 
   /create-require/1.1.1:
@@ -1023,6 +1039,11 @@ packages:
     resolution: {integrity: sha512-9UZCFRHQdNrfTpGg8+1INIg93B6zE0aXMVFkw1WFwvO4SlZywU6aLg5Of0Ap/PgcbSw4LNxvMWXMeugwMCX0AA==}
     engines: {node: '>=8'}
     dev: true
+
+  /object-assign/4.1.1:
+    resolution: {integrity: sha1-IQmtx5ZYh8/AXLvUQsrIv7s2CGM=}
+    engines: {node: '>=0.10.0'}
+    dev: false
 
   /on-finished/2.3.0:
     resolution: {integrity: sha1-IPEzZIGwg811M3mSoWlxqi2QaUc=}
