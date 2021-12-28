@@ -31,9 +31,9 @@ window.onload = async () => {
         const options = document.querySelector(".options")
         //buttons
         const loginButton = document.querySelector(".login")
-        console.log(loginButton)
         const logoutButton = document.querySelector(".logout")
         const getUserButton = document.querySelector(".get-user")
+        const tzIndicator = document.querySelector(".select-timezone-indicator")
         const changeButton = document.querySelector(".change")
         //inputs
         const editTimezoneInput = document.querySelector(".edit-timezone")
@@ -47,7 +47,10 @@ window.onload = async () => {
         options.hidden = !logged
 
         const user = logged ? await getCurrentUser() : null
-        if (logged) editTimezoneInput.value = user.timezone
+        if (logged) {
+            editTimezoneInput.value = user.timezone.substring(1)
+            tzIndicator.value = user.timezone.charAt(0)
+        }
 
         loginButton.addEventListener('click', async () => {
             window.location.href = '/api/auth'
@@ -63,7 +66,8 @@ window.onload = async () => {
 
         changeButton.addEventListener('click', async () => {
             let settingsToPush = {}
-            if (editTimezoneInput.value !== "") settingsToPush.timezone = editTimezoneInput.value
+            if (editTimezoneInput.value === "") { alert("Please put a timezone"); editTimezoneInput.select(); return}
+            settingsToPush.timezone = String(tzIndicator.value) + String(editTimezoneInput.value)
 
             if (Object.keys(settingsToPush).length !== 0) {
                 console.log(await editCurrentUser(settingsToPush))

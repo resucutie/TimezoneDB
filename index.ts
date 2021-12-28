@@ -17,17 +17,13 @@ import { mainPage } from './ui/index.js'
 const app = express()
 
 app.use(cookieParser())
-
 app.use(express.json())
 app.use(cors())
-
 app.use("/api", ApiRouter);
 app.use("/dbg", DebguRouter);
-
-// this prevents express from being stupid and parsing {} in query paramaters into actual objects
-app.set('query parser', 'simple');
-
 app.use("/gui", express.static(mainPage))
+
+app.set('query parser', 'simple');
 
 app.get("/", (req, res) => {
     res.redirect("/gui")
