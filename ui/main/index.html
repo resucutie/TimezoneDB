@@ -1,22 +1,66 @@
-<html lang="en">
+<html class="theme-light">
 <head>
     <script src="index.js"></script>
-    <title>TimeTogether - PROTOTYPE</title>
+    <link rel="stylesheet" href="style.css">
+    <title>TimeTogether Settings</title>
 </head>
 <body>
-    <h1>welcome to the TimeTogether manager</h1>
-    <h4>note that this page is a prototype and it will be redone</h4>
-    <button class="login">login</button>
-    <button class="logout">logout</button>
-    <div class="options" action="/action_page.php">
-        <button class="get-user">get user</button>
-        <br>
-        <select class="select-timezone-indicator">
-            <option value="+">+</option>
-            <option value="-">-</option>
-        </select>
-        <input type="text" class="edit-timezone" name="timezone">
-        <button class="change">change</button>
+    <!-- <div class="title">
+        <h2>TimeTogether settings</h2>
+    </div> -->
+    <div class="login">Login</div>
+    
+    <div class="actions">
+        <span class="dark-mode">
+            dark_mode
+        </span>
+        <button class="logout full">Logout</button>
+    </div>
+
+    <div class="options-card" action="/action_page.php">
+        <h4 class="option-title">Timezone</h4>
+        <div class="timezone-section">
+            <div class="custom-arrow">
+                <select class="select-timezone">
+                    <option value="-12">-12</option>
+                    <option value="-11">-11<option>
+                    <option value="-10">-10</option>
+                    <option value="-9">-9</option>
+                    <option value="-8">-8</option>
+                    <option value="-7">-7</option>
+                    <option value="-6">-6</option>
+                    <option value="-5">-5</option>
+                    <option value="-4">-4</option>
+                    <option value="-3">-3</option>
+                    <option value="-2">-2</option>
+                    <option value="-1">-1</option>
+                    <option value="+0">0</option>
+                    <option value="+1">+1</option>
+                    <option value="+2">+2</option>
+                    <option value="+3">+3</option>
+                    <option value="+4">+4</option>
+                    <option value="+5">+5</option>
+                    <option value="+6">+6</option>
+                    <option value="+7">+7</option>
+                    <option value="+8">+8</option>
+                    <option value="+9">+9</option>
+                    <option value="+10">+10</option>
+                    <option value="+11">+11</option>
+                    <option value="+12">+12</option>
+                    <option value="+13">+13</option>
+                    <option value="+14">+14</option>
+                    <option value="custom">Custom</option>
+                </select>
+            </div>
+            <div class="custom-timezone">
+                <select class="select-timezone-indicator">
+                    <option value="+">+</option>
+                    <option value="-">-</option>
+                </select>
+                <input type="text" class="edit-timezone" name="timezone">
+            </div>
+        </div>
+        <button class="change">Publish changes</button>
     </div>
 </body>
 </html>
