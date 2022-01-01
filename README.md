@@ -55,7 +55,7 @@ Api for managing logins and logouts
 Logins the user. Will require OAuth2 authorization if the user is disconnected or not logged in. It will create a cookie named `loginInfo` with encrypted information.<br />
 Also it will automatically setup an account for it if the user is new
 
-Will redirect to `/api/user` with a status code of [201 Created](https://httpstatuses.com/201) if a new account was created and [303 See Other](https://httpstatuses.com/303) if the account already exists
+Will redirect to `/` (that will redirect to `/gui`) with a status code of [201 Created](https://httpstatuses.com/201) if a new account was created and [303 See Other](https://httpstatuses.com/303) if the account already exists
 
 
 
