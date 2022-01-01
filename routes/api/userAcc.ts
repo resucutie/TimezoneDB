@@ -1,3 +1,4 @@
+import cors from "cors";
 import { Router, Response } from "express"
 import constants from "../../utils/constants.js";
 import { addUser, deleteUser, doesUserExist, editUser, getUser } from "../../utils/db.js";
@@ -22,6 +23,11 @@ const UserAccRouter = Router();
 
 //     res.status(201).send(await getUser(id))
 // })
+
+UserAccRouter.use(cors({
+    origin: "*",
+    methods: ["GET"]
+}))
 
 UserAccRouter.get('/:id', async (req, res) => {
     try {

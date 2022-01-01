@@ -227,6 +227,19 @@ input:focus, select:focus{
     box-shadow: 0 0 30px 2px hsla(0, 0%, 0%, 40%);
 }
 
+.publish-wrapper{
+    display: flex;
+}
+
+button.red{
+    border-color: rgb(255, 51, 0);
+}
+
+button.red:hover{
+    background: rgb(255, 51, 0);
+    color: #fff;
+}
+
 @keyframes gradient {
 	0% {
 		background-position: 0% 50%;

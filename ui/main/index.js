@@ -25,6 +25,10 @@ const editCurrentUser = async (settings) => await fetch(url + "/api/user", {
     body: JSON.stringify(settings)
 }).then(res => res.json())
 
+const deleteCurrentUser = async () => await fetch(url + "/api/user", {
+    method: 'DELETE'
+}).then(res => res.json())
+
 function setCookie(name, value, days = 120) {
     var expires = ""
     if (days) {
@@ -54,6 +58,7 @@ window.onload = async () => {
         const loginButton = document.querySelector(".login")
         const logoutButton = document.querySelector(".logout")
         const changeButton = document.querySelector(".change")
+        const deleteButton = document.querySelector(".delete")
         const darkMode = document.querySelector(".dark-mode")
         //inputs
         const editTimezoneInput = document.querySelector(".edit-timezone")
@@ -135,7 +140,14 @@ window.onload = async () => {
             settingsToPush.timezone = tz
 
             if (Object.keys(settingsToPush).length !== 0) {
-                console.log(await editCurrentUser(settingsToPush))
+                await editCurrentUser(settingsToPush)
+                window.location.reload()
+            }
+        })
+
+        deleteButton.addEventListener('click', async () => {
+            if(confirm("Are you sure that you wanna delete?")) {
+                await deleteCurrentUser()
                 window.location.reload()
             }
         })
