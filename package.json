@@ -11,7 +11,7 @@
   },
   "author": "abUwUser",
   "dependencies": {
-    "colors": "^1.4.0",
+    "chalk": "^5.0.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",

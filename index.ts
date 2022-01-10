@@ -5,7 +5,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 import express from "express"
 import cors from "cors"
-import colors from "colors"
+import chalk from "chalk"
 import cookieParser from "cookie-parser"
 
 import constants from "./utils/constants.js"
@@ -31,5 +31,5 @@ app.get("/", (req, res) => {
 
 app.listen(process.env.PORT || constants.PORT, async () => {
     const date = new Date()
-    console.log(`${colors.gray(date.getHours() + ":" + date.getMinutes())} ${colors.green.bold("✓")} Sucessfully listened! Check at ${String(constants.URL).cyan}`)
+    console.log(`${chalk.gray(date.getHours() + ":" + date.getMinutes())} ${chalk.green.bold`✓`} Sucessfully listened! Check at ${chalk.cyan(constants.URL)}`)
 })
