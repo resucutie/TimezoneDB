@@ -4,6 +4,7 @@ import constants from "../../utils/constants.js";
 import { addUser, deleteUser, doesUserExist, editUser, getUser } from "../../utils/db.js";
 import { getUserInfo } from "../../utils/encryption.js";
 import { errorLog } from "../../utils/log.js";
+import { ensureTimezone, isNotTimezone } from "../../utils/timezones.js";
 
 const UserAccRouter = Router();
 
@@ -81,20 +82,20 @@ UserAccRouter.put('/', async (req, res) => {
             !(settings instanceof Object) ||
             settings instanceof Array ||
             Object.getOwnPropertyNames(settings).length === 0 ||
-            !settings.hasOwnProperty("timezone")
+            !settings.hasOwnProperty("timezone") ||
+            isNotTimezone(settings.timezone)
         ) {
             res.status(400).send({
                 error_message: "Invalid settings sent",
                 error_code: constants.ExceptionCodes.LoginConnections.INVALID_SETTINGS
             })
-
             return
         }
 
         const currentUserId = await getUserInfo(req.cookies.loginInfo)?.userId
 
         const oldUser = await editUser(currentUserId, {
-            timezone: settings.timezone
+            timezone: settings.timezone !== "-0" ? settings.timezone : "+0"
         })
 
         res.status(200).send(oldUser)

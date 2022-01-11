@@ -49,6 +49,40 @@ function getCookie(name) {
     return null
 }
 
+const timezones = [
+    ["-12", "UTC-12"],
+    ["-11", "UTC-11"],
+    ["-10", "UTC-10"],
+    ["-9", "UTC-9"],
+    ["-8", "UTC-8"],
+    ["-7", "UTC-7"],
+    ["-6", "UTC-6"],
+    ["-5", "UTC-5"],
+    ["-4", "UTC-4"],
+    ["-3", "UTC-3"],
+    ["-2", "UTC-2"],
+    ["-1", "UTC-1"],
+    ["+0", "UTC 0 (Default)"],
+    ["+1", "UTC+1"],
+    ["+2", "UTC+2"],
+    ["+3", "UTC+3"],
+    ["+4", "UTC+4"],
+    ["+5", "UTC+5"],
+    ["+6", "UTC+6"],
+    ["+7", "UTC+7"],
+    ["+8", "UTC+8"],
+    ["+9", "UTC+9"],
+    ["+10", "UTC+10"],
+    ["+11", "UTC+11"],
+    ["+12", "UTC+12"],
+    ["+13", "UTC+13"],
+    ["+14", "UTC+14"]
+]
+
+let tzOptions = Array.from(timezones)
+tzOptions.unshift(["detect", "Detect current timezone"])
+tzOptions.push(["custom", "Custom timezone"])
+
 window.onload = async () => {
     try {
         //other
@@ -66,6 +100,7 @@ window.onload = async () => {
         const tzSelector = document.querySelector(".select-timezone")
         const tzIndicator = document.querySelector(".select-timezone-indicator")
 
+        //theme handler
         function updateTheme() {
             let cookie = getCookie("dark_mode")
             if (!cookie) cookie = window.matchMedia?.('(prefers-color-scheme: dark)')?.matches ? "yes" : "no"
@@ -82,25 +117,26 @@ window.onload = async () => {
         options.hidden = !logged
         customTz.hidden = true
 
-        let tz
+        let tz = "+0"
 
         const user = logged ? await getCurrentUser() : null
         if (logged) {
             tz = user.timezone
+            console.log(tz)
             editTimezoneInput.value = tz.substring(1)
             tzIndicator.value = tz.charAt(0)
-            let a = false
-            for (const opt of tzSelector.options) {
-                if (opt.innerText.replace(/ /g, "").replace("\n", "") == "") tzSelector.removeChild(opt)
-                if (opt.value === tz && !a) {
-                    tzSelector.value = tz
-                    a = true
-                }
+            
+            for (const [value, text] of tzOptions) {
+                const ele = document.createElement('option');
+                ele.value = value;
+                ele.innerHTML = text;
+                tzSelector.appendChild(ele);
             }
-            if (!a) {
+
+            if (timezones.includes(tz)) {
                 tzSelector.value = "custom"
                 customTz.hidden = false
-            }
+            } else tzSelector.value = tz
         }
 
         tzSelector.addEventListener('change', () => {
@@ -108,9 +144,12 @@ window.onload = async () => {
                 customTz.hidden = false
                 return
             }
+            if (tzSelector.value === "detect") {
+                const numTz = Number(new Date().toString().match(/([-\+][0-9]+)\s/)[1].substring(0, 3))
+                tzSelector.value = numTz >= 0 ? "+" + numTz : String(numTz)
+            }
             customTz.hidden = true
             tz = tzSelector.value
-            console.log(tz)
         })
 
         loginButton.addEventListener('click', async () => {
@@ -157,7 +196,7 @@ window.onload = async () => {
         <h1>an horrible error happened</h1>
         <div>pls contact A user#8169</div><br><br>
         <div style="color: #f00">
-            <b>error stack:</b> ${err.stack}
+            ${err.stack}
         </div>`
     }
 }
