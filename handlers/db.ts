@@ -61,11 +61,15 @@ export const edit = async (id: UserID, newUser: ProtectedUser) => {
     return prevUser
 }
 
-export const get = async (id: UserID, hidePrivate = true) => {
+export const get = async (id: UserID, showPrivate = false, showPasswordHash = false) => {
     if (!await userExists(id)) throw new Error(`User ${id} does not exist`)
 
     let user = JSON.parse(await fs.readFile(path.join(folder, id + ".json"), { encoding: "utf8" }))
-    if(hidePrivate) delete user.private
+    if (!showPrivate) {
+        delete user.private
+    } else if (showPrivate && !showPasswordHash) {
+        delete user.private.passwordHash
+    }
 
     return user
 }
