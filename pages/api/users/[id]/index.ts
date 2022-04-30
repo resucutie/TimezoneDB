@@ -1,11 +1,17 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
+import NextCors from "nextjs-cors";
 import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
 import { get } from '../../../../handlers/db'
 import { getUsernameId } from '../../../../handlers/cache'
 
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse<string>) {
+    await NextCors(req, res, {
+        origin: "*",
+    })
+
     const { id } = req.query
     const { logintoken } = req.body
 

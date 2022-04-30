@@ -101,7 +101,7 @@ const response = await fetch("http://localhost:3000/api/auth/signin", {
 
 if (response.ok) {
 	const data = await response.json()
-    console.log({id: data.id, loginToken: data.logintoken})
+    console.log({id: data.user.id, loginToken: data.logintoken})
 	yourCookieParser.set("logintoken", data.logintoken)
 } else {
 	console.error("Error: ", response.statusText)

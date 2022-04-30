@@ -5,7 +5,7 @@ import mergeDeep from "../utils/mergeDeep";
 import { UserID } from "..";
 
 export interface Cache {
-    ids: {
+    services: {
         [key: string]: IDCacheData;
     }
     usernames?: UsernameData
@@ -46,7 +46,7 @@ export const get = async (key: string, defaultValue: any) => {
 
 export const write = async (key: string, value: any, strictlyNonExisting = false) => {
     const data = await getAll()
-    if (strictlyNonExisting && data.ids[key]) throw new Error(`Key ${key} already exists`)
+    if (strictlyNonExisting && data.services[key]) throw new Error(`Key ${key} already exists`)
 
     data[key] = value
     
@@ -64,15 +64,16 @@ export const init = async (overrideEverything = false) => {
 
     const useFunc = overrideEverything ? override : save
     await useFunc({
-        ids: {},
+        services: {},
         usernames: {}
     })
 }
 
 // id cache
 
+type ServiceID = string
 export type IDCacheData = {
-    [key: string]: string
+    [key: ServiceID]: string
 }
 
 export interface IDCacheManager {
@@ -83,58 +84,63 @@ export interface IDCacheManager {
 }
 
 
-export const containsIDValues = async () => {
+export const containsSerivces = async () => {
     const cache = await getAll()
-    return typeof cache?.ids === 'object'
+    return typeof cache?.services === 'object'
 }
 
-export const createID = async (id: string, overrideIfExists = false) => {
+export const createService = async (id: string, overrideIfExists = false) => {
     const cache = await getAll()
 
-    if (!overrideIfExists && cache.ids[id]) throw new Error("Creating an ID that already exists: " + id)
+    if (!overrideIfExists && cache.services[id]) throw new Error("Creating an ID that already exists: " + id)
 
-    cache.ids[id] = {}
+    cache.services[id] = {}
     await save(cache)
 
     return id
 }
 
-export const getID = async (id: string, createIfDoesNotExist = true) => {
-    if (!await containsIDValues()) await init()
+export const getService = async (id: string, createIfDoesNotExist = true) => {
+    if (!await containsSerivces()) await init()
     
-    const cache = await getAll()
+    let cache = await getAll()
 
-    if (createIfDoesNotExist && !cache.ids[id]) {
-        await createID(id)
+    if (createIfDoesNotExist && !cache.services[id]) {
+        await createService(id)
     }
 
-    const valueIds = cache.ids[id]
+    let valueServices = cache.services[id]
 
     return {
-        elements: valueIds,
+        elements: valueServices,
         get: (userIDFromOtherService: string) => {
-            return valueIds[userIDFromOtherService] 
+            return valueServices?.[userIDFromOtherService] 
         },
         write: (userIDFromOtherService: string, dbUserID: string, strictlyNonExisting = false) => {
-            if (strictlyNonExisting && valueIds[userIDFromOtherService]) throw new Error(`ID ${userIDFromOtherService} from ${id} already exists and contains the value ${dbUserID}`)
-            valueIds[userIDFromOtherService] = dbUserID
+            if (strictlyNonExisting && valueServices?.[userIDFromOtherService]) throw new Error(`ID ${userIDFromOtherService} from ${id} already exists and contains the value ${dbUserID}`)
+            cache.services[id][userIDFromOtherService] = dbUserID
+            // console.log(cache.services)
 
-            save({
-                ids: {
-                    [id]: valueIds
-                }
-            })
+            override(cache)
         },
         remove: (userIDFromOtherService: string) => {
-            delete cache.ids[id][userIDFromOtherService]
+            console.log(cache.services[id][userIDFromOtherService])
+            
+            const newCacheService = Object.keys(cache.services[id]).reduce((acc: any, key) => {
+                if (key !== userIDFromOtherService) acc[key] = cache.services[id][key]
+                return acc
+            }, {})
+            cache.services[id] = newCacheService
+            
+            console.log(cache.services[id])
             override(cache)
         }
     } as IDCacheManager
 }
 
-export const removeID = async (id: string) => {
+export const removeService = async (id: string) => {
     const cache = await getAll()
-    delete cache.ids[id]
+    delete cache.services[id]
     override(cache)
 }
 
@@ -155,6 +161,27 @@ export const addUsername = async (username: string, id: string, errorOnFind = fa
     (cache.usernames as UsernameData)[username] = id
 
     await save(cache)
+}
+
+export const renameUsername = async (
+    oldUsername: string,
+    newUsername: string
+) => {
+    let cache = await getAll()
+
+    if (!await getUsernameId(oldUsername)) throw new Error("Renaming to the same username (" + newUsername + ")")
+    if (await getUsernameId(newUsername)) throw new Error("Renaming to the same username (" + newUsername + ")");
+
+    const newUsernameList: UsernameData = {}
+    delete Object.assign(newUsernameList, cache.usernames, {
+        [newUsername]: (cache.usernames as UsernameData)[oldUsername],
+    })[oldUsername]
+
+    console.log(newUsernameList, oldUsername, newUsername)
+
+    cache.usernames = newUsernameList
+
+    await override(cache)
 }
 
 export const removeUsername = async (username: string) => {

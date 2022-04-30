@@ -4,37 +4,45 @@ import cookie from "cookie"
 import Image from 'next/image'
 import { useCookies } from 'react-cookie'
 import { useEffect, useState } from 'react'
+import getUser from '../utils/frontend/getUser'
+import { useRouter } from 'next/router'
 
 const SignIn: NextPage = () => {
-    const [, setCookie] = useCookies(["user"])
+    const router = useRouter();
+    const [cookie, setCookie] = useCookies(["user"])
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
 
-    const handleLogIn = async (username: string, password: string) => {
+    const handleSignIn = async (username: string, password: string) => {
         try {
             if (!(username && password)) throw new Error("No username or password")
 
-            const response = await fetch("http://localhost:3000/api/auth/signin", {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    "username": username,
-                    "password": password
-                })
-            })
-            console.log(response)
+            const response = await fetch(
+                `${window.location.origin}/api/auth/signin`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                        password: password,
+                    }),
+                }
+            )
             if (response.ok) {
                 const data = await response.json()
-                console.log(data)
-                // setCookie("user", JSON.stringify(data), {
-                //     path: "/",
-                //     maxAge: 1653320965, // Expires after 1 month
-                //     sameSite: true,
-                // })
+                setCookie("user", JSON.stringify(Object.assign({}, data.user, {logintoken: data.logintoken})), {
+                    path: "/",
+                    maxAge: 1653320965, // Expires after 1 month
+                    sameSite: true,
+                })
+
+                console.log(cookie)
+
+                router.push("/dashboard")
             } else {
-                console.error("Error: ", response.statusText)
+                console.error("Error: ", response.text())
             }
         } catch (err) {
             console.log(err)
@@ -59,7 +67,7 @@ const SignIn: NextPage = () => {
                 Password:
                 <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
             </label>
-            <button onClick={() => handleLogIn(username, password)}>Sign in</button>
+            <button onClick={() => handleSignIn(username, password)}>Sign in</button>
         </div>
     )
 }

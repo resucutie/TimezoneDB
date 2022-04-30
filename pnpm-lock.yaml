@@ -13,9 +13,11 @@ specifiers:
   eslint-config-next: 12.1.5
   jsonwebtoken: ^8.5.1
   next: 12.1.5
+  nextjs-cors: ^2.1.1
   react: 18.0.0
   react-cookie: ^4.1.1
   react-dom: 18.0.0
+  temporal-polyfill: ^0.0.6
   typescript: 4.6.3
 
 dependencies:
@@ -24,9 +26,11 @@ dependencies:
   dotenv: 16.0.0
   jsonwebtoken: 8.5.1
   next: 12.1.5_react-dom@18.0.0+react@18.0.0
+  nextjs-cors: 2.1.1_next@12.1.5
   react: 18.0.0
   react-cookie: 4.1.1_react@18.0.0
   react-dom: 18.0.0_react@18.0.0
+  temporal-polyfill: 0.0.6
 
 devDependencies:
   '@types/bcrypt': 5.0.0
@@ -578,6 +582,14 @@ packages:
     resolution: {integrity: sha512-Lb+/XT4WC4PaCWWtZpNPaXmjiNDUe5CJuUtbkMrIM1kb1T/jJoAIp+bkVP/r5lHzMr+ZAAF8XHp7+my6Ol0ysQ==}
     requiresBuild: true
     dev: true
+
+  /cors/2.8.5:
+    resolution: {integrity: sha512-KIHbLJqu73RGr/hnbrO9uBeixNGuvSQjul/jdFvS/KFSIH1hWVd1ng7zOHx+YrEfInLG7q4n6GHQ9cDtxv/P6g==}
+    engines: {node: '>= 0.10'}
+    dependencies:
+      object-assign: 4.1.1
+      vary: 1.1.2
+    dev: false
 
   /cross-spawn/7.0.3:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}
@@ -1580,6 +1592,15 @@ packages:
       - babel-plugin-macros
     dev: false
 
+  /nextjs-cors/2.1.1_next@12.1.5:
+    resolution: {integrity: sha512-HxE4w4Wng5VdTtnn0DWPphuWKwd1Ty+lpyTZ/sQGgaNnd5demYMchKf+W1LtI8YFYxu2HnRb3MrxERRV0QKLKA==}
+    peerDependencies:
+      next: ^8.1.1-canary.54 || ^9.0.0 || ^10.0.0-0 || ^11.0.0 || ^12.0.0
+    dependencies:
+      cors: 2.8.5
+      next: 12.1.5_react-dom@18.0.0+react@18.0.0
+    dev: false
+
   /node-addon-api/3.2.1:
     resolution: {integrity: sha512-mmcei9JghVNDYydghQmeDX8KoAm0FAiYyIcUt/N4nhyAipB17pllZQDOJD2fotxABnt4Mdz+dKTO7eftLg4d0A==}
     dev: false
@@ -2034,6 +2055,10 @@ packages:
       yallist: 4.0.0
     dev: false
 
+  /temporal-polyfill/0.0.6:
+    resolution: {integrity: sha512-QlWW8S2EnW0BT8Ubme7hbnxhlQ4GfVjrdaZJXCY6czY2SiKaL9WAnyBY3NZUnqPJpbnOIWX10glb60JvTkuQHA==}
+    dev: false
+
   /text-table/0.2.0:
     resolution: {integrity: sha1-f17oI66AUgfACvLfSoTsP8+lcLQ=}
     dev: true
@@ -2119,6 +2144,11 @@ packages:
   /v8-compile-cache/2.3.0:
     resolution: {integrity: sha512-l8lCEmLcLYZh4nbunNZvQCJc5pv7+RCwa8q/LdUx8u7lsWvPDKmpodJAJNwkAhJC//dFY48KuIEmjtd4RViDrA==}
     dev: true
+
+  /vary/1.1.2:
+    resolution: {integrity: sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=}
+    engines: {node: '>= 0.8'}
+    dev: false
 
   /webidl-conversions/3.0.1:
     resolution: {integrity: sha1-JFNCdeKnvGvnvIZhHMFq4KVlSHE=}

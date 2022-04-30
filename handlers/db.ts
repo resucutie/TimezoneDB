@@ -1,7 +1,8 @@
 import path from "path"
 import {constants as fsConstants} from "fs"
 import fs from "fs/promises"
-import { write as writeCache, get as getCache, addUsername, removeUsername } from "./cache"
+import bcrypt from "bcrypt"
+import * as cache from "./cache"
 import { ProtectedUser, User, UserID } from ".."
 import mergeDeep from "../utils/mergeDeep"
 
@@ -31,19 +32,27 @@ export const initUser = async (id: UserID, data?: Object, override = false) => {
     if (await userExists(id) && !override) throw new Error(`User ${id} already exists`)
 
     fs.writeFile(`${path.join(folder, String(id))}.json`, JSON.stringify(mergeDeep({
+        id,
         private: {},
         createdAt: Date.now(),
+        timezone: "",
+        services: {}
     }, data)))
 }
 
-export const create = async (user: ProtectedUser, strictlyNonExisting = true) => {
-    const lastID = BigInt(await getCache("lastID", -1))
+export const create = async (username: string, password: string, strictlyNonExisting = true) => {
+    const lastID = BigInt(await cache.get("lastID", -1))
     if (await userExists((lastID + 1n).toString()) && strictlyNonExisting) throw new Error(`User ${lastID} already exists`)
 
-    await initUser((lastID + 1n).toString(), user)
+    await initUser((lastID + 1n).toString(), {
+        username,
+        private: {
+            passwordHash: await bcrypt.hash(password, await bcrypt.genSalt(10)),
+        },
+    })
 
-    await writeCache("lastID", (lastID + 1n).toString())
-    await addUsername(user.username, (lastID + 1n).toString())
+    await cache.write("lastID", (lastID + 1n).toString())
+    await cache.addUsername(username, (lastID + 1n).toString())
 
     return lastID + 1n
 }
@@ -51,12 +60,38 @@ export const create = async (user: ProtectedUser, strictlyNonExisting = true) =>
 export const edit = async (id: UserID, newUser: ProtectedUser) => {
     if (!await userExists(id)) throw new Error(`User ${id} does not exist`)
 
-    const prevUser = await get(id)
+    const prevUser: ProtectedUser  = await get(id, true, true)
+
+    // cache stuff
+    if (newUser.username !== prevUser.username) await cache.renameUsername(prevUser.username, newUser.username)
+
+    if (Object.keys(newUser.services as Object).length === 0) {
+        for (const key in prevUser.services) {
+            const service = await cache.getService(key)
+            service.remove(prevUser.services[key])
+        }
+    } else {
+        for (const key in newUser.services) {
+            const service = await cache.getService(key)
+            if (!service) continue
+
+            if (service.get(prevUser.services[key])) service.remove(prevUser.services[key])
+
+            // console.log(
+            //     service.elements,
+            //     prevUser.services[key],
+            //     service.get(prevUser.services[key])
+            // )
+
+            service.write(newUser.services[key], `${id}`)
+        }
+    }
 
     fs.writeFile(`${path.join(folder, String(id))}.json`, JSON.stringify(mergeDeep({
-        private: {},
-        createdAt: Date.now(),
-    }, prevUser, newUser)))
+        private: prevUser.private ?? {},
+        createdAt: prevUser.createdAt ?? Date.now(),
+        timezone: prevUser.timezone ?? ""
+    }, newUser)))
 
     return prevUser
 }
@@ -77,7 +112,7 @@ export const get = async (id: UserID, showPrivate = false, showPasswordHash = fa
 export const remove = async (userId: UserID) => {
     if (!await userExists(userId)) throw new Error(`User ${userId} does not exist`)
     
-    await removeUsername((await get(userId)).username)
+    await cache.removeUsername((await get(userId)).username)
 
     fs.rm(path.join(folder, userId + ".json"))
 }

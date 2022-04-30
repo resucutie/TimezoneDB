@@ -3,6 +3,7 @@ import { get } from '../../../handlers/db'
 import bcrypt from "bcrypt"
 import { getUsernameId } from '../../../handlers/cache'
 import jwt from "jsonwebtoken"
+import NextCors from 'nextjs-cors'
 // import { contains } from '../../../handlers/ambiguition'
 
 type Data = {
@@ -10,6 +11,9 @@ type Data = {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<any>) {
+    await NextCors(req, res, {
+        origin: "*",
+    })
     if (req.method !== 'POST') return
 
     let {
@@ -25,7 +29,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             username = (decoded as any).username
             password = (decoded as any).password
         } catch (err) {
-            return res.status(400).send('Wrong JWT login information')
+            return res.status(401).send('Wrong JWT login information')
         }
     }
 
@@ -43,5 +47,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
     const token = logintoken ?? jwt.sign({ username, password }, process.env.JWT_SECRET as string, { expiresIn: '30d' })
 
-    res.status(200).send(user)
+    res.status(200).send(Object.assign({}, user, { logintoken: token }))
 }
