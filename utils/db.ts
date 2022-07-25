@@ -5,7 +5,7 @@ import constants from "./constants.js"
 import { getCurrentUser } from "./discordApi.js"
 
 const users: any = nedb.create({
-    filename:  process.env.DB_PATH || "/db/database.db",
+    filename: process.env.DB_PATH || "/db/database.db",
     inMemoryOnly: false,
     autoload: true
 })

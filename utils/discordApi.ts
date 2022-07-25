@@ -7,7 +7,7 @@ async function requestAuthorization(code: string) {
         client_secret: process.env.DISCORD_SECRET || "",
         code,
         grant_type: 'authorization_code',
-        redirect_uri: (process.env.PROD == "true") ? `https://timezonedb.bigdumb.gq/api/auth` : `http://localhost:${constants.PORT}/api/auth`,
+        redirect_uri: (process.env.PROD == "true") ? `https://timezonedb.catvibers.me/api/auth` : `http://localhost:${constants.PORT}/api/auth`,
         scope: 'identify',
     }
 
